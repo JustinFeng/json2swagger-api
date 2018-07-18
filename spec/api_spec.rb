@@ -2,7 +2,6 @@ require './spec/spec_helper'
 require './lib/api'
 
 describe JSON2Swagger::API do
-
   include Rack::Test::Methods
 
   def app
