@@ -4,7 +4,6 @@ ruby '2.5.0'
 
 gem 'grape'
 gem 'grape-swagger'
-gem 'hashie'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rake'
 
