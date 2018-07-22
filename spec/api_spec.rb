@@ -24,7 +24,7 @@ describe JSON2Swagger::API do
   end
 
   describe 'POST /translate' do
-    let(:data) { { some: 'json' } }
+    let(:data) { { 'some' => 'json' } }
 
     it 'responds 201' do
       post '/translate', data

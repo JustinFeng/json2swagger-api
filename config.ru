@@ -4,7 +4,7 @@ require './lib/api'
 use Rack::Cors do
   allow do
     origins '*'
-    resource '*', headers: :any, methods: :get
+    resource '*', headers: :any, methods: %i[get post]
   end
 end
 
