@@ -16,7 +16,7 @@ module JSON2Swagger
     desc 'Translate json to swagger doc'
     default_format :yaml
     post :translate do
-      params.to_hash.to_yaml
+      JSON.parse(request.body.read).to_swagger.to_yaml.lines[1..-1].join
     end
 
     add_swagger_documentation
