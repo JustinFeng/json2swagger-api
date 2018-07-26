@@ -24,7 +24,9 @@ describe JSON2Swagger::API do
   end
 
   describe 'POST /translate' do
-    let(:data) { { 'a' => 1, 'b' => 1.1, 'c' => '1', 'd' => true, 'e' => false, 'f' => [1], 'g' => {} }.to_json }
+    let(:data) do
+      { 'a' => 1, 'b' => 1.1, 'c' => '1', 'd' => true, 'e' => false, 'f' => [1], 'g' => {}, 'h' => nil }.to_json
+    end
 
     it 'responds 201' do
       post '/translate', data
@@ -74,6 +76,9 @@ describe JSON2Swagger::API do
           'g' => {
             'type' => 'object',
             'properties' => {}
+          },
+          'h' => {
+            'type' => 'UNKNOWN'
           }
         }
       }.to_yaml.lines[1..-1].join)
