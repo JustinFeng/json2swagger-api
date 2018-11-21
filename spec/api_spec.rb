@@ -28,60 +28,126 @@ describe JSON2Swagger::API do
       { 'a' => 1, 'b' => 1.1, 'c' => '1', 'd' => true, 'e' => false, 'f' => [1], 'g' => {}, 'h' => nil }.to_json
     end
 
-    it 'responds 201' do
-      post '/translate', data
+    context 'Accept application/yaml' do
+      it 'responds 201' do
+        header 'Accept', 'application/yaml'
+        post '/translate', data
 
-      expect(last_response.status).to eq(201)
-    end
+        expect(last_response.status).to eq(201)
+      end
 
-    it 'returns application/yaml as Content-Type' do
-      post '/translate', data
+      it 'returns application/yaml as Content-Type' do
+        header 'Accept', 'application/yaml'
+        post '/translate', data
 
-      expect(last_response.headers['Content-Type']).to eq('application/yaml')
-    end
+        expect(last_response.headers['Content-Type']).to eq('application/yaml')
+      end
 
-    it 'returns translation result in yml format' do
-      post '/translate', data
+      it 'returns translation result in yml format' do
+        header 'Accept', 'application/yaml'
+        post '/translate', data
 
-      expect(last_response.body).to eq({
-        'type' => 'object',
-        'properties' => {
-          'a' => {
-            'type' => 'integer',
-            'example' => 1
-          },
-          'b' => {
-            'type' => 'number',
-            'example' => 1.1
-          },
-          'c' => {
-            'type' => 'string',
-            'example' => '1'
-          },
-          'd' => {
-            'type' => 'boolean',
-            'example' => true
-          },
-          'e' => {
-            'type' => 'boolean',
-            'example' => false
-          },
-          'f' => {
-            'type' => 'array',
-            'items' => {
+        expect(last_response.body).to eq({
+          'type' => 'object',
+          'properties' => {
+            'a' => {
               'type' => 'integer',
               'example' => 1
+            },
+            'b' => {
+              'type' => 'number',
+              'example' => 1.1
+            },
+            'c' => {
+              'type' => 'string',
+              'example' => '1'
+            },
+            'd' => {
+              'type' => 'boolean',
+              'example' => true
+            },
+            'e' => {
+              'type' => 'boolean',
+              'example' => false
+            },
+            'f' => {
+              'type' => 'array',
+              'items' => {
+                'type' => 'integer',
+                'example' => 1
+              }
+            },
+            'g' => {
+              'type' => 'object',
+              'properties' => {}
+            },
+            'h' => {
+              'type' => 'UNKNOWN'
             }
-          },
-          'g' => {
-            'type' => 'object',
-            'properties' => {}
-          },
-          'h' => {
-            'type' => 'UNKNOWN'
           }
-        }
-      }.to_yaml.lines[1..-1].join)
+        }.to_yaml.lines[1..-1].join)
+      end
+    end
+
+    context 'Accept application/json' do
+      it 'responds 201' do
+        header 'Accept', 'application/json'
+        post '/translate', data
+
+        expect(last_response.status).to eq(201)
+      end
+
+      it 'returns application/json as Content-Type' do
+        header 'Accept', 'application/json'
+        post '/translate', data
+
+        expect(last_response.headers['Content-Type']).to eq('application/json')
+      end
+
+      it 'returns translation result in json format' do
+        header 'Accept', 'application/json'
+        post '/translate', data
+
+        expect(last_response.body).to eq({
+          'type' => 'object',
+          'properties' => {
+            'a' => {
+              'type' => 'integer',
+              'example' => 1
+            },
+            'b' => {
+              'type' => 'number',
+              'example' => 1.1
+            },
+            'c' => {
+              'type' => 'string',
+              'example' => '1'
+            },
+            'd' => {
+              'type' => 'boolean',
+              'example' => true
+            },
+            'e' => {
+              'type' => 'boolean',
+              'example' => false
+            },
+            'f' => {
+              'type' => 'array',
+              'items' => {
+                'type' => 'integer',
+                'example' => 1
+              }
+            },
+            'g' => {
+              'type' => 'object',
+              'properties' => {}
+            },
+            'h' => {
+              'type' => 'UNKNOWN'
+            }
+          }
+        }.to_json)
+      end
     end
   end
 end

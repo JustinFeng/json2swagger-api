@@ -5,6 +5,7 @@ module JSON2Swagger
   class API < Grape::API
     content_type :json, 'application/json'
     content_type :yaml, 'application/yaml'
+    formatter :yaml, ->(object, _) { object.to_yaml.lines[1..-1].join }
 
     default_format :json
 
@@ -14,9 +15,8 @@ module JSON2Swagger
     end
 
     desc 'Translate json to swagger doc'
-    default_format :yaml
     post :translate do
-      JSON.parse(request.body.read).to_swagger.to_yaml.lines[1..-1].join
+      JSON.parse(request.body.read).to_swagger
     end
 
     add_swagger_documentation
