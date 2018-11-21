@@ -108,45 +108,47 @@ describe JSON2Swagger::API do
         header 'Accept', 'application/json'
         post '/translate', data
 
-        expect(last_response.body).to eq({
-          'type' => 'object',
-          'properties' => {
-            'a' => {
-              'type' => 'integer',
-              'example' => 1
-            },
-            'b' => {
-              'type' => 'number',
-              'example' => 1.1
-            },
-            'c' => {
-              'type' => 'string',
-              'example' => '1'
-            },
-            'd' => {
-              'type' => 'boolean',
-              'example' => true
-            },
-            'e' => {
-              'type' => 'boolean',
-              'example' => false
-            },
-            'f' => {
-              'type' => 'array',
-              'items' => {
+        expect(last_response.body).to eq(
+          JSON.pretty_generate(
+            'type' => 'object',
+            'properties' => {
+              'a' => {
                 'type' => 'integer',
                 'example' => 1
+              },
+              'b' => {
+                'type' => 'number',
+                'example' => 1.1
+              },
+              'c' => {
+                'type' => 'string',
+                'example' => '1'
+              },
+              'd' => {
+                'type' => 'boolean',
+                'example' => true
+              },
+              'e' => {
+                'type' => 'boolean',
+                'example' => false
+              },
+              'f' => {
+                'type' => 'array',
+                'items' => {
+                  'type' => 'integer',
+                  'example' => 1
+                }
+              },
+              'g' => {
+                'type' => 'object',
+                'properties' => {}
+              },
+              'h' => {
+                'type' => 'UNKNOWN'
               }
-            },
-            'g' => {
-              'type' => 'object',
-              'properties' => {}
-            },
-            'h' => {
-              'type' => 'UNKNOWN'
             }
-          }
-        }.to_json)
+          )
+        )
       end
     end
   end
