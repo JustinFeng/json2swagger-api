@@ -3,7 +3,6 @@ source 'http://rubygems.org'
 ruby '2.5.1'
 
 gem 'grape'
-gem 'grape-swagger'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rake'
 

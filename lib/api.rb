@@ -1,4 +1,3 @@
-require 'grape-swagger'
 require 'yaml'
 
 module JSON2Swagger
@@ -18,7 +17,5 @@ module JSON2Swagger
     post :translate do
       JSON.parse(request.body.read).to_swagger
     end
-
-    add_swagger_documentation
   end
 end
